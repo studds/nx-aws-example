@@ -92,6 +92,25 @@
             "passWithNoTests": true,
             "setupFile": "apps/simple/src/test-setup.ts"
           }
+        },
+        "deploy": {
+          "builder": "@nx-aws/s3:deploy",
+          "options": {
+            "destPrefix": "public",
+            "bucket": {
+              "targetName": "api:deploy",
+              "outputName": "WebBucket"
+            },
+            "distribution": {
+              "targetName": "api:deploy",
+              "outputName": "DistributionId"
+            }
+          },
+          "configurations": {
+            "production": {
+              "stackSuffix": "prod"
+            }
+          }
         }
       }
     },
@@ -130,12 +149,14 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "@nx-aws/sam:build",
           "options": {
             "outputPath": "dist/apps/api",
-            "main": "apps/api/src/main.ts",
+            "template": "apps/api/template.yaml",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
+            "assets": ["apps/api/src/assets"],
+            "sourceMap": true,
+            "maxWorkers": 1
           },
           "configurations": {
             "production": {
@@ -152,9 +173,34 @@
           }
         },
         "serve": {
-          "builder": "@nrwl/node:execute",
+          "builder": "@nx-aws/sam:execute",
           "options": {
-            "buildTarget": "api:build"
+            "buildTarget": "api:build",
+            "packageTarget": "api:package"
+          }
+        },
+        "package": {
+          "builder": "@nx-aws/sam:package",
+          "options": {
+            "templateFile": "apps/api/template.yaml",
+            "outputTemplateFile": "dist/apps/api/serverless-output.yaml",
+            "s3Prefix": "simple/api"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "deploy": {
+          "builder": "@nx-aws/sam:deploy",
+          "options": {
+            "templateFile": "dist/apps/api/serverless-output.yaml",
+            "s3Prefix": "simple/api",
+            "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"]
+          },
+          "configurations": {
+            "production": {
+              "stackSuffix": "prod"
+            }
           }
         },
         "lint": {
