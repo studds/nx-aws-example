@@ -101,8 +101,6 @@ Resources:
   # The WebBucket is where we store our SPA
   WebBucket:
     Type: 'AWS::S3::Bucket'
-    Properties:
-      BucketName: !Sub '${AWS::StackName}-web'
 
   Api:
     Type: AWS::Serverless::Api
