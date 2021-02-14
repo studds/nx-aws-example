@@ -1,0 +1,7 @@
+{
+  "name": "@nx-aws-example/layer",
+  "version": "0.0.1",
+  "dependencies": {
+      "bcrypt": "*"
+  }
+}
