@@ -176,7 +176,14 @@
           "builder": "@nx-aws/sam:execute",
           "options": {
             "buildTarget": "api:build",
-            "packageTarget": "api:package"
+            "packageTarget": "api:package",
+            "importStackOutputs": {
+              "TestLayer": {
+                "targetName": "layer:deploy",
+                "outputName": "TestLayer"
+              }
+            },
+            "mimicEnv": "dev"
           }
         },
         "package": {
@@ -195,7 +202,13 @@
           "options": {
             "templateFile": "dist/apps/api/serverless-output.yaml",
             "s3Prefix": "simple/api",
-            "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"]
+            "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"],
+            "importStackOutputs": {
+              "TestLayer": {
+                "targetName": "layer:deploy",
+                "outputName": "TestLayer"
+              }
+            }
           },
           "configurations": {
             "production": {
@@ -250,22 +263,48 @@
       }
     },
     "layer": {
-      "root": "libs/layer",
-      "sourceRoot": "libs/layer/src",
-      "projectType": "library",
+      "root": "apps/layer",
+      "sourceRoot": "apps/layer/src",
+      "projectType": "application",
+      "prefix": "layer",
       "architect": {
         "build": {
-            "builder": "@nrwl/workspace:run-commands",
-            "options": {
-                "parallel": false,
-                "commands": [
-                    "rm -rf dist/libs/layer",
-                    "mkdir -p dist/libs",
-                    "cp -R libs/layer dist/libs",
-                    "cd dist/libs/layer/nodejs && npm install --target=12.2.0 --target_arch=x64 --target_platform=linux --target_libc=glibc",
-                    "cd dist/libs/layer && zip -r layer.zip ./*"
-                ]
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              "rm -rf dist/apps/layer",
+              "mkdir -p dist/apps/layer",
+              "cp -R apps/layer/nodejs dist/apps/layer/",
+              "cd dist/apps/layer/nodejs && npm install --target=12.2.0 --target_arch=x64 --target_platform=linux --target_libc=glibc",
+              "cd dist/apps/layer && zip -r layer.zip ./*"
+            ]
+          }
+        },
+
+        "package": {
+          "builder": "@nx-aws/sam:package",
+          "options": {
+            "templateFile": "apps/layer/template.yaml",
+            "outputTemplateFile": "dist/apps/layer/serverless-output.yaml",
+            "s3Prefix": "apps/layer"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "deploy": {
+          "builder": "@nx-aws/sam:deploy",
+          "options": {
+            "templateFile": "dist/apps/layer/serverless-output.yaml",
+            "s3Prefix": "apps/layer",
+            "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"]
+          },
+          "configurations": {
+            "production": {
+              "stackSuffix": "prod"
             }
+          }
         }
       }
     }

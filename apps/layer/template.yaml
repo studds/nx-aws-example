@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Backend for layer
+
+Resources:
+  TestLayer:
+    Type: AWS::Serverless::LayerVersion
+    Description: Test layer
+    Properties:
+      ContentUri: ./
+      CompatibleRuntimes:
+        - nodejs10.x
+        - nodejs12.x
+        - nodejs14.x
+
+Outputs:
+  TestLayer:
+    Value: !Ref TestLayer

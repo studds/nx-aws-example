@@ -2,6 +2,11 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: Backend for nx-aws-example
 
+Parameters:
+  TestLayer:
+    Type: String
+    Description: Layer
+
 Globals:
   Function:
     Runtime: nodejs12.x
@@ -117,7 +122,7 @@ Resources:
       CodeUri: src/app/hello
       Handler: hello.handler
       Layers:
-        -   !Ref TestLayer
+        - !Ref TestLayer
       Events:
         Hello:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -126,15 +131,6 @@ Resources:
             Method: get
             RestApiId:
               Ref: Api
-
-  TestLayer:
-    Type: AWS::Serverless::LayerVersion
-    Description: Test layer
-    Properties:
-      ContentUri: /Users/danielstudds/Code/nx-aws-example/dist/libs/layer/layer.zip
-      CompatibleRuntimes:
-        - nodejs10.x
-        - nodejs12.x
 
 Outputs:
   WebBucket:
