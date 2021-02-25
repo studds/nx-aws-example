@@ -1938,16 +1938,6 @@
     yargs "15.4.1"
     yargs-parser "20.0.0"
 
-"@nx-aws/core@/Users/danielstudds/Code/nx-aws/nx-aws-core-0.9.1.tgz":
-  version "0.9.1"
-  uid "12d3a7e4449411aeb3e8b583c973c2bf68b5ee4f"
-  resolved "/Users/danielstudds/Code/nx-aws/nx-aws-core-0.9.1.tgz#12d3a7e4449411aeb3e8b583c973c2bf68b5ee4f"
-  dependencies:
-    "@angular-devkit/architect" "0.1102.1"
-    "@angular-devkit/core" "11.2.1"
-    aws-sdk "^2.850.0"
-    rxjs "^6.6.0"
-
 "@nx-aws/core@0.9.1", "@nx-aws/core@file:../nx-aws/nx-aws-core-0.9.1.tgz":
   version "0.9.1"
   resolved "file:../nx-aws/nx-aws-core-0.9.1.tgz#12d3a7e4449411aeb3e8b583c973c2bf68b5ee4f"
@@ -1955,18 +1945,6 @@
     "@angular-devkit/architect" "0.1102.1"
     "@angular-devkit/core" "11.2.1"
     aws-sdk "^2.850.0"
-    rxjs "^6.6.0"
-
-"@nx-aws/s3@/Users/danielstudds/Code/nx-aws/nx-aws-s3-0.9.1.tgz":
-  version "0.9.1"
-  uid efd77dc11b1b1956a3a55ea8b6acddb810b6d807
-  resolved "/Users/danielstudds/Code/nx-aws/nx-aws-s3-0.9.1.tgz#efd77dc11b1b1956a3a55ea8b6acddb810b6d807"
-  dependencies:
-    "@angular-devkit/architect" "0.1102.1"
-    "@angular-devkit/core" "11.2.1"
-    "@angular-devkit/schematics" "11.2.1"
-    "@nrwl/workspace" "^11"
-    "@nx-aws/core" "0.9.1"
     rxjs "^6.6.0"
 
 "@nx-aws/s3@file:../nx-aws/nx-aws-s3-0.9.1.tgz":
@@ -1979,30 +1957,6 @@
     "@nrwl/workspace" "^11"
     "@nx-aws/core" "0.9.1"
     rxjs "^6.6.0"
-
-"@nx-aws/sam@/Users/danielstudds/Code/nx-aws/nx-aws-sam-0.9.1.tgz":
-  version "0.9.1"
-  uid c03f3ed63e95467cfe6f66debd4e512bfb0f9294
-  resolved "/Users/danielstudds/Code/nx-aws/nx-aws-sam-0.9.1.tgz#c03f3ed63e95467cfe6f66debd4e512bfb0f9294"
-  dependencies:
-    "@angular-devkit/architect" "0.1102.1"
-    "@angular-devkit/build-webpack" "0.1102.1"
-    "@angular-devkit/core" "11.2.1"
-    "@angular-devkit/schematics" "11.2.1"
-    "@nrwl/node" "^11"
-    "@nrwl/workspace" "^11"
-    "@nx-aws/core" "0.9.1"
-    "@nx-aws/sam" "0.9.1"
-    aws-sdk "^2.850.0"
-    cloudform-types "^6.1.0"
-    cloudformation-js-yaml-schema "^0.4.2"
-    cross-spawn "^7.0.3"
-    js-yaml "^4.0.0"
-    mkdirp "^1.0.4"
-    rxjs "^6.6.0"
-    source-map-support "^0.5.19"
-    ts-essentials "^7.0.0"
-    webpack-merge "^5.1.1"
 
 "@nx-aws/sam@0.9.1", "@nx-aws/sam@file:../nx-aws/nx-aws-sam-0.9.1.tgz":
   version "0.9.1"
@@ -2180,7 +2134,7 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/node@*":
+"@types/node@*", "@types/node@^14.11.2":
   version "14.14.31"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.31.tgz#72286bd33d137aa0d152d47ec7c1762563d34055"
   integrity sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g==
@@ -4019,7 +3973,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.11.0, commander@^2.12.1, commander@^2.20.0:
+commander@^2.11.0, commander@^2.12.1, commander@^2.15.1, commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -8229,6 +8183,15 @@ mute-stream@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.8.tgz#1630c42b2251ff81e2a283de96a5497ea92e5e0d"
   integrity sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==
+
+name-creator@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/name-creator/-/name-creator-3.0.3.tgz#278c0498634580577f2e6e56342b7f6d5712c988"
+  integrity sha512-SxG6r7zS3AV3Fc7GkHvJBo1ONF/YQhwv+9Wdniu+RcXuoL2b2yfcrTSYqc7bbOKxcjL2znRywDOd5pN1pTq3AA==
+  dependencies:
+    "@types/node" "^14.11.2"
+    commander "^2.15.1"
+    lodash "^4.17.20"
 
 nan@^2.12.1:
   version "2.14.2"

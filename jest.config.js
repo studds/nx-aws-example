@@ -4,5 +4,6 @@ module.exports = {
     '<rootDir>/apps/api',
     '<rootDir>/libs/api-interfaces',
     '<rootDir>/apps/layer',
+    '<rootDir>/libs/lib-as-layer',
   ],
 };

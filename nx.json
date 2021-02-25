@@ -15,10 +15,11 @@
     }
   },
   "projects": {
-    "simple": { "tags": [] },
+    "simple": { "tags": [], "implicitDependencies": ["api"] },
     "simple-e2e": { "tags": [], "implicitDependencies": ["simple"] },
-    "api": { "tags": [] },
+    "api": { "tags": [], "implicitDependencies": ["layer"] },
     "api-interfaces": { "tags": [] },
-    "layer": { "tags": [] }
+    "layer": { "tags": [] },
+    "lib-as-layer": { "tags": [] }
   }
 }

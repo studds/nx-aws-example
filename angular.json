@@ -92,6 +92,13 @@
           },
           "outputs": ["coverage/apps/simple"]
         },
+        "package": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": ["echo No-op package for app, added for convenience"]
+          }
+        },
         "deploy": {
           "builder": "@nx-aws/s3:deploy",
           "options": {
@@ -156,7 +163,7 @@
             "assets": ["apps/api/src/assets"],
             "sourceMap": true,
             "maxWorkers": 1,
-            "externalDependencies": ["bcrypt"]
+            "externalDependencies": ["bcrypt", "@nx-aws-example/lib-as-layer"]
           },
           "configurations": {
             "production": {
@@ -181,6 +188,10 @@
               "TestLayer": {
                 "targetName": "layer:deploy",
                 "outputName": "TestLayer"
+              },
+              "LibAsLayer": {
+                "targetName": "lib-as-layer:deploy",
+                "outputName": "LibAsLayer"
               }
             },
             "mimicEnv": "dev"
@@ -207,6 +218,10 @@
               "TestLayer": {
                 "targetName": "layer:deploy",
                 "outputName": "TestLayer"
+              },
+              "LibAsLayer": {
+                "targetName": "lib-as-layer:deploy",
+                "outputName": "LibAsLayer"
               }
             }
           },
@@ -274,14 +289,13 @@
             "parallel": false,
             "commands": [
               "rm -rf dist/apps/layer",
-              "mkdir -p dist/apps/layer",
+              "mkdir -p dist/apps/layer/nodejs",
               "cp -R apps/layer/nodejs dist/apps/layer/",
               "cd dist/apps/layer/nodejs && npm install --target=12.2.0 --target_arch=x64 --target_platform=linux --target_libc=glibc",
               "cd dist/apps/layer && zip -r layer.zip ./*"
             ]
           }
         },
-
         "package": {
           "builder": "@nx-aws/sam:package",
           "options": {
@@ -298,6 +312,78 @@
           "options": {
             "templateFile": "dist/apps/layer/serverless-output.yaml",
             "s3Prefix": "apps/layer",
+            "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"]
+          },
+          "configurations": {
+            "production": {
+              "stackSuffix": "prod"
+            }
+          }
+        }
+      }
+    },
+    "lib-as-layer": {
+      "root": "libs/lib-as-layer",
+      "sourceRoot": "libs/lib-as-layer/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/lib-as-layer/tsconfig.lib.json",
+              "libs/lib-as-layer/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/lib-as-layer/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/lib-as-layer"],
+          "options": {
+            "jestConfig": "libs/lib-as-layer/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "node-package": {
+          "builder": "@nrwl/node:package",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/libs/lib-as-layer/layer/nodejs/node_modules/@nx-aws-example/lib-as-layer",
+            "tsConfig": "libs/lib-as-layer/tsconfig.lib.json",
+            "packageJson": "libs/lib-as-layer/package.json",
+            "main": "libs/lib-as-layer/src/index.ts",
+            "assets": ["libs/lib-as-layer/*.md"]
+          }
+        },
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              "rm -rf dist/libs/lib-as-layer",
+              "nx run lib-as-layer:node-package",
+              "cd dist/libs/lib-as-layer/layer/nodejs/node_modules/@nx-aws-example/lib-as-layer && npm install --target=12.2.0 --target_arch=x64 --target_platform=linux --target_libc=glibc",
+              "cd dist/libs/lib-as-layer/layer && zip -r layer.zip ./*"
+            ]
+          }
+        },
+        "package": {
+          "builder": "@nx-aws/sam:package",
+          "options": {
+            "templateFile": "libs/lib-as-layer/template.yaml",
+            "outputTemplateFile": "dist/libs/lib-as-layer/serverless-output.yaml",
+            "s3Prefix": "libs/lib-as-layer"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "deploy": {
+          "builder": "@nx-aws/sam:deploy",
+          "options": {
+            "templateFile": "dist/libs/lib-as-layer/serverless-output.yaml",
+            "s3Prefix": "libs/lib-as-layer",
             "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"]
           },
           "configurations": {

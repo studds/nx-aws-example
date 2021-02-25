@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Backend for layer
+
+Resources:
+  LibAsLayer:
+    Type: AWS::Serverless::LayerVersion
+    Description: Lib as layer
+    Properties:
+      ContentUri: ./layer/layer.zip
+      CompatibleRuntimes:
+        - nodejs10.x
+        - nodejs12.x
+        - nodejs14.x
+
+Outputs:
+  LibAsLayer:
+    Value: !Ref LibAsLayer

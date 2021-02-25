@@ -13,7 +13,10 @@ Backend: `ng serve api`
 
 ## Build
 
-Run `ng build simple` and `ng build api` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build simple --withDeps` build the project. [`withDeps`](https://nx.dev/latest/angular/cli/run-many#with-deps)
+will automatically build dependencies, either explicit or
+[implicit](https://nx.dev/latest/angular/getting-started/configuration#implicit-dependencies),
+as well. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Package and deploy
 
@@ -22,9 +25,9 @@ The backend needs separate package and deploy steps. Both package and deploy req
 You'll also need to have AWS permissions configured, and to configure an S3 bucket where deploy artefacts can be
 stored - in these examples, `my-build-artefacts`.
 
-`ng run api:package --s3Bucket my-build-artefacts`
+`ng run api:package --withDeps --s3Bucket my-build-artefacts`
 
-`ng run api:deploy --s3Bucket my-build-artefacts`
+`ng run api:deploy --withDeps --s3Bucket my-build-artefacts`
 
 The first time you deploy the backend stack will take a while, as it deploys a CloudFront distribution.
 You can then deploy the frontend app. The frontend app refers to the backend api in `angular.json` to derive the deploy bucket.

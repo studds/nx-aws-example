@@ -6,6 +6,9 @@ Parameters:
   TestLayer:
     Type: String
     Description: Layer
+  LibAsLayer:
+    Type: String
+    Description: Layer
 
 Globals:
   Function:
@@ -123,6 +126,7 @@ Resources:
       Handler: hello.handler
       Layers:
         - !Ref TestLayer
+        - !Ref LibAsLayer
       Events:
         Hello:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
