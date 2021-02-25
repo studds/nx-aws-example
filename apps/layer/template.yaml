@@ -7,7 +7,7 @@ Resources:
     Type: AWS::Serverless::LayerVersion
     Description: Test layer
     Properties:
-      ContentUri: ./
+      ContentUri: ./layer.zip
       CompatibleRuntimes:
         - nodejs10.x
         - nodejs12.x
