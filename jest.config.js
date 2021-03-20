@@ -4,6 +4,6 @@ module.exports = {
     '<rootDir>/apps/nx-aws-api',
     '<rootDir>/apps/nx-aws-api-interfaces',
     '<rootDir>/apps/layer',
-    '<rootDir>/libs/lib-as-layer',
+    '<rootDir>/libs/nx-aws-lib-as-layer',
   ],
 };

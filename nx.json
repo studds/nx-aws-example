@@ -25,9 +25,6 @@
     "api-interfaces": {
       "tags": []
     },
-    "lib-as-layer": {
-      "tags": []
-    },
     "nx-aws-api": {
       "tags": [],
       "implicitDependencies": ["nx-aws-layer"]
@@ -41,6 +38,9 @@
       "implicitDependencies": ["nx-aws-frontend"]
     },
     "nx-aws-layer": {
+      "tags": []
+    },
+    "nx-aws-lib-as-layer": {
       "tags": []
     }
   }
