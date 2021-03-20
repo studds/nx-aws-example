@@ -104,11 +104,11 @@
           "options": {
             "destPrefix": "public",
             "bucket": {
-              "targetName": "api:deploy",
+              "targetName": "nx-aws-api:deploy",
               "outputName": "WebBucket"
             },
             "distribution": {
-              "targetName": "api:deploy",
+              "targetName": "nx-aws-api:deploy",
               "outputName": "DistributionId"
             }
           },
@@ -144,110 +144,6 @@
             "tsConfig": ["apps/simple-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/simple-e2e/**/*"]
           }
-        }
-      }
-    },
-    "api": {
-      "root": "apps/api",
-      "sourceRoot": "apps/api/src",
-      "projectType": "application",
-      "prefix": "api",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nx-aws/sam:build",
-          "options": {
-            "outputPath": "dist/apps/api",
-            "template": "apps/api/template.yaml",
-            "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"],
-            "sourceMap": true,
-            "maxWorkers": 1,
-            "externalDependencies": ["bcrypt", "@nx-aws-example/lib-as-layer"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
-              "fileReplacements": [
-                {
-                  "replace": "apps/api/src/environments/environment.ts",
-                  "with": "apps/api/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nx-aws/sam:execute",
-          "options": {
-            "buildTarget": "api:build",
-            "packageTarget": "api:package",
-            "importStackOutputs": {
-              "TestLayer": {
-                "targetName": "layer:deploy",
-                "outputName": "TestLayer"
-              },
-              "LibAsLayer": {
-                "targetName": "lib-as-layer:deploy",
-                "outputName": "LibAsLayer"
-              }
-            },
-            "mimicEnv": "dev"
-          }
-        },
-        "package": {
-          "builder": "@nx-aws/sam:package",
-          "options": {
-            "templateFile": "apps/api/template.yaml",
-            "outputTemplateFile": "dist/apps/api/serverless-output.yaml",
-            "s3Prefix": "simple/api"
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
-        "deploy": {
-          "builder": "@nx-aws/sam:deploy",
-          "options": {
-            "templateFile": "dist/apps/api/serverless-output.yaml",
-            "s3Prefix": "simple/api",
-            "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"],
-            "importStackOutputs": {
-              "TestLayer": {
-                "targetName": "layer:deploy",
-                "outputName": "TestLayer"
-              },
-              "LibAsLayer": {
-                "targetName": "lib-as-layer:deploy",
-                "outputName": "LibAsLayer"
-              }
-            }
-          },
-          "configurations": {
-            "production": {
-              "stackSuffix": "prod"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/api/tsconfig.app.json",
-              "apps/api/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/api/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/api/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/apps/api"]
         }
       }
     },
@@ -391,6 +287,110 @@
               "stackSuffix": "prod"
             }
           }
+        }
+      }
+    },
+    "nx-aws-api": {
+      "root": "apps/nx-aws-api",
+      "sourceRoot": "apps/nx-aws-api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nx-aws/sam:build",
+          "options": {
+            "outputPath": "dist/apps/nx-aws-api",
+            "template": "apps/nx-aws-api/template.yaml",
+            "tsConfig": "apps/nx-aws-api/tsconfig.app.json",
+            "assets": ["apps/nx-aws-api/src/assets"],
+            "sourceMap": true,
+            "maxWorkers": 1,
+            "externalDependencies": ["bcrypt", "@nx-aws-example/lib-as-layer"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/nx-aws-api/src/environments/environment.ts",
+                  "with": "apps/nx-aws-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nx-aws/sam:execute",
+          "options": {
+            "buildTarget": "nx-aws-api:build",
+            "packageTarget": "nx-aws-api:package",
+            "importStackOutputs": {
+              "TestLayer": {
+                "targetName": "layer:deploy",
+                "outputName": "TestLayer"
+              },
+              "LibAsLayer": {
+                "targetName": "lib-as-layer:deploy",
+                "outputName": "LibAsLayer"
+              }
+            },
+            "mimicEnv": "dev"
+          }
+        },
+        "package": {
+          "builder": "@nx-aws/sam:package",
+          "options": {
+            "templateFile": "apps/nx-aws-api/template.yaml",
+            "outputTemplateFile": "dist/apps/nx-aws-api/serverless-output.yaml",
+            "s3Prefix": "simple/api"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "deploy": {
+          "builder": "@nx-aws/sam:deploy",
+          "options": {
+            "templateFile": "dist/apps/nx-aws-api/serverless-output.yaml",
+            "s3Prefix": "simple/api",
+            "capabilities": ["CAPABILITY_IAM", "CAPABILITY_AUTO_EXPAND"],
+            "importStackOutputs": {
+              "TestLayer": {
+                "targetName": "layer:deploy",
+                "outputName": "TestLayer"
+              },
+              "LibAsLayer": {
+                "targetName": "lib-as-layer:deploy",
+                "outputName": "LibAsLayer"
+              }
+            }
+          },
+          "configurations": {
+            "production": {
+              "stackSuffix": "prod"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/nx-aws-api/tsconfig.app.json",
+              "apps/nx-aws-api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/nx-aws-api/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/nx-aws-api/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/apps/nx-aws-api"]
         }
       }
     }

@@ -5,6 +5,6 @@ module.exports = {
       tsConfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  coverageDirectory: '../../coverage/apps/api',
-  displayName: 'api',
+  coverageDirectory: '../../coverage/apps/nx-aws-api',
+  displayName: 'nx-aws-api',
 };
