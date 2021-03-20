@@ -22,14 +22,6 @@
     }
   },
   "projects": {
-    "simple": {
-      "tags": [],
-      "implicitDependencies": ["nx-aws-api"]
-    },
-    "simple-e2e": {
-      "tags": [],
-      "implicitDependencies": ["simple"]
-    },
     "api-interfaces": {
       "tags": []
     },
@@ -42,6 +34,14 @@
     "nx-aws-api": {
       "tags": [],
       "implicitDependencies": ["layer"]
+    },
+    "nx-aws-frontend": {
+      "tags": [],
+      "implicitDependencies": ["nx-aws-api"]
+    },
+    "nx-aws-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-aws-frontend"]
     }
   }
 }

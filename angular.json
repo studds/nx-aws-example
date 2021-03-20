@@ -1,152 +1,53 @@
 {
   "version": 1,
-  "projects": {
-    "simple": {
-      "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
       },
-      "root": "apps/simple",
-      "sourceRoot": "apps/simple/src",
-      "prefix": "nx-aws-example",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/simple",
-            "index": "apps/simple/src/index.html",
-            "main": "apps/simple/src/main.ts",
-            "polyfills": "apps/simple/src/polyfills.ts",
-            "tsConfig": "apps/simple/tsconfig.app.json",
-            "aot": true,
-            "assets": ["apps/simple/src/favicon.ico", "apps/simple/src/assets"],
-            "styles": ["apps/simple/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/simple/src/environments/environment.ts",
-                  "with": "apps/simple/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "simple:build",
-            "proxyConfig": "apps/simple/proxy.conf.json"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "simple:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "simple:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/simple/tsconfig.app.json",
-              "apps/simple/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/simple/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/simple/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/apps/simple"]
-        },
-        "package": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": false,
-            "commands": ["echo No-op package for app, added for convenience"]
-          }
-        },
-        "deploy": {
-          "builder": "@nx-aws/s3:deploy",
-          "options": {
-            "destPrefix": "public",
-            "bucket": {
-              "targetName": "nx-aws-api:deploy",
-              "outputName": "WebBucket"
-            },
-            "distribution": {
-              "targetName": "nx-aws-api:deploy",
-              "outputName": "DistributionId"
-            }
-          },
-          "configurations": {
-            "production": {
-              "stackSuffix": "prod"
-            }
-          }
-        }
+      "library": {
+        "linter": "tslint"
       }
     },
-    "simple-e2e": {
-      "root": "apps/simple-e2e",
-      "sourceRoot": "apps/simple-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/simple-e2e/cypress.json",
-            "tsConfig": "apps/simple-e2e/tsconfig.e2e.json",
-            "devServerTarget": "simple:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "simple:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/simple-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/simple-e2e/**/*"]
-          }
-        }
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
       }
     },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "nx-aws-frontend",
+  "projects": {
     "api-interfaces": {
       "root": "libs/api-interfaces",
       "sourceRoot": "libs/api-interfaces/src",
@@ -393,53 +294,155 @@
           "outputs": ["coverage/apps/nx-aws-api"]
         }
       }
+    },
+    "nx-aws-frontend": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/nx-aws-frontend",
+      "sourceRoot": "apps/nx-aws-frontend/src",
+      "prefix": "nx-aws-example",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/nx-aws-frontend",
+            "index": "apps/nx-aws-frontend/src/index.html",
+            "main": "apps/nx-aws-frontend/src/main.ts",
+            "polyfills": "apps/nx-aws-frontend/src/polyfills.ts",
+            "tsConfig": "apps/nx-aws-frontend/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/nx-aws-frontend/src/favicon.ico",
+              "apps/nx-aws-frontend/src/assets"
+            ],
+            "styles": ["apps/nx-aws-frontend/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/nx-aws-frontend/src/environments/environment.ts",
+                  "with": "apps/nx-aws-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nx-aws-frontend:build",
+            "proxyConfig": "apps/nx-aws-frontend/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nx-aws-frontend:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nx-aws-frontend:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/nx-aws-frontend/tsconfig.app.json",
+              "apps/nx-aws-frontend/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/nx-aws-frontend/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/nx-aws-frontend/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/apps/nx-aws-frontend"]
+        },
+        "package": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": ["echo No-op package for app, added for convenience"]
+          }
+        },
+        "deploy": {
+          "builder": "@nx-aws/s3:deploy",
+          "options": {
+            "destPrefix": "public",
+            "bucket": {
+              "targetName": "nx-aws-api:deploy",
+              "outputName": "WebBucket"
+            },
+            "distribution": {
+              "targetName": "nx-aws-api:deploy",
+              "outputName": "DistributionId"
+            }
+          },
+          "configurations": {
+            "production": {
+              "stackSuffix": "prod"
+            }
+          }
+        }
+      }
+    },
+    "nx-aws-frontend-e2e": {
+      "root": "apps/nx-aws-frontend-e2e",
+      "sourceRoot": "apps/nx-aws-frontend-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/nx-aws-frontend-e2e/cypress.json",
+            "tsConfig": "apps/nx-aws-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "nx-aws-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nx-aws-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/nx-aws-frontend-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/nx-aws-frontend-e2e/**/*"]
+          }
+        }
+      }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular"
-  },
-  "schematics": {
-    "@nrwl/workspace": {
-      "library": {
-        "linter": "tslint"
-      }
-    },
-    "@nrwl/cypress": {
-      "cypress-project": {
-        "linter": "tslint"
-      }
-    },
-    "@nrwl/node": {
-      "application": {
-        "linter": "tslint"
-      },
-      "library": {
-        "linter": "tslint"
-      }
-    },
-    "@nrwl/nest": {
-      "application": {
-        "linter": "tslint"
-      },
-      "library": {
-        "linter": "tslint"
-      }
-    },
-    "@nrwl/express": {
-      "application": {
-        "linter": "tslint"
-      },
-      "library": {
-        "linter": "tslint"
-      }
-    },
-    "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
-    }
-  },
-  "defaultProject": "simple"
+  }
 }
