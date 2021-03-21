@@ -1,6 +1,7 @@
 {
   "version": 1,
   "cli": {
+    "analytics": false,
     "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
@@ -90,7 +91,7 @@
             "assets": ["apps/nx-aws-api/src/assets"],
             "sourceMap": true,
             "maxWorkers": 1,
-            "externalDependencies": ["bcrypt", "@nx-aws-example/lib-as-layer"]
+            "externalDependencies": ["bcrypt", "@nx-aws-example/nx-aws-lib-as-layer"]
           },
           "configurations": {
             "production": {
@@ -117,7 +118,7 @@
                 "outputName": "TestLayer"
               },
               "LibAsLayer": {
-                "targetName": "lib-as-nx-aws-layer:deploy",
+                "targetName": "nx-aws-lib-as-layer:deploy",
                 "outputName": "LibAsLayer"
               }
             },
@@ -147,7 +148,7 @@
                 "outputName": "TestLayer"
               },
               "LibAsLayer": {
-                "targetName": "lib-as-nx-aws-layer:deploy",
+                "targetName": "nx-aws-lib-as-layer:deploy",
                 "outputName": "LibAsLayer"
               }
             }
@@ -290,6 +291,10 @@
             "distribution": {
               "targetName": "nx-aws-api:deploy",
               "outputName": "DistributionId"
+            },
+            "config": {
+              "configFileName": "config.json",
+              "importStackOutputs": {}
             }
           },
           "configurations": {
@@ -399,7 +404,7 @@
           "builder": "@nrwl/node:package",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/libs/nx-aws-lib-as-layer/layer/nodejs/node_modules/@nx-aws-example/lib-as-layer",
+            "outputPath": "dist/libs/nx-aws-lib-as-layer/layer/nodejs/node_modules/@nx-aws-example/nx-aws-lib-as-layer",
             "tsConfig": "libs/nx-aws-lib-as-layer/tsconfig.lib.json",
             "packageJson": "libs/nx-aws-lib-as-layer/package.json",
             "main": "libs/nx-aws-lib-as-layer/src/index.ts",
@@ -412,8 +417,8 @@
             "parallel": false,
             "commands": [
               "rm -rf dist/libs/nx-aws-lib-as-layer",
-              "nx run lib-as-nx-aws-layer:node-package",
-              "cd dist/libs/nx-aws-lib-as-layer/layer/nodejs/node_modules/@nx-aws-example/lib-as-layer && npm install --target=12.2.0 --target_arch=x64 --target_platform=linux --target_libc=glibc",
+              "nx run nx-aws-lib-as-layer:node-package",
+              "cd dist/libs/nx-aws-lib-as-layer/layer/nodejs/node_modules/@nx-aws-example/nx-aws-lib-as-layer && npm install --target=12.2.0 --target_arch=x64 --target_platform=linux --target_libc=glibc",
               "cd dist/libs/nx-aws-lib-as-layer/layer && zip -r layer.zip ./*"
             ]
           }
