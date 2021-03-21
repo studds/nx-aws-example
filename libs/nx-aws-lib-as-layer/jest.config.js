@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'lib-as-layer',
+  displayName: 'nx-aws-lib-as-layer',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/lib-as-layer',
+  coverageDirectory: '../../coverage/libs/nx-aws-lib-as-layer',
 };

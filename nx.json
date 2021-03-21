@@ -1,9 +1,14 @@
 {
   "npmScope": "nx-aws-example",
-  "affected": { "defaultBase": "master" },
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     "nx.json": "*"
@@ -11,15 +16,32 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
     }
   },
   "projects": {
-    "simple": { "tags": [], "implicitDependencies": ["api"] },
-    "simple-e2e": { "tags": [], "implicitDependencies": ["simple"] },
-    "api": { "tags": [], "implicitDependencies": ["layer"] },
-    "api-interfaces": { "tags": [] },
-    "layer": { "tags": [] },
-    "lib-as-layer": { "tags": [] }
+    "api-interfaces": {
+      "tags": []
+    },
+    "nx-aws-api": {
+      "tags": [],
+      "implicitDependencies": ["nx-aws-layer"]
+    },
+    "nx-aws-frontend": {
+      "tags": [],
+      "implicitDependencies": ["nx-aws-api"]
+    },
+    "nx-aws-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["nx-aws-frontend"]
+    },
+    "nx-aws-layer": {
+      "tags": []
+    },
+    "nx-aws-lib-as-layer": {
+      "tags": []
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { hash } from 'bcrypt';
-import { libAsLayer } from '@nx-aws-example/lib-as-layer';
+import { libAsLayer } from '@nx-aws-example/nx-aws-lib-as-layer';
 
 export const handler = async () => {
   const saltRounds = 10;

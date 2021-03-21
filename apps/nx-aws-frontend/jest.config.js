@@ -13,11 +13,11 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/apps/simple',
+  coverageDirectory: '../../coverage/apps/nx-aws-frontend',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
     'jest-preset-angular/build/HTMLCommentSerializer.js',
   ],
-  displayName: 'simple',
+  displayName: 'nx-aws-frontend',
 };
